@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Docker-related files
+*.log
+docker-compose.override.yml
+
+# Alembic migrations
+alembic/versions/*.pyc
+alembic/versions/*.py[cod]
+alembic/versions/*__pycache__/
+alembic.ini
+
+# Python-specific
+*.swp
+*.swo
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.cache/
+
+# MySQL / Postgres
+*.db
+*.sqlite3
+
+# VSCode / IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+
+# macOS-related
+.DS_Store
+
+# FastAPI / Uvicorn logs
+*.log
+
+# PyCharm
+.idea/
