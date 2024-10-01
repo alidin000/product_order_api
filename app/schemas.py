@@ -23,7 +23,6 @@ class OrderItemBase(BaseModel):
     quantity: int
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class OrderBase(BaseModel):
@@ -39,7 +38,6 @@ class Order(BaseModel):
     items: List[OrderItemBase]
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 

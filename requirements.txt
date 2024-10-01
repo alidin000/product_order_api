@@ -7,3 +7,5 @@ pytest
 pytest-asyncio
 psycopg2-binary
 sqlalchemy[asyncio]
+httpx
+aiosqlite

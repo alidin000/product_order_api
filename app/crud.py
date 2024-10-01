@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import NoResultFound, SQLAlchemyError
@@ -41,19 +42,16 @@ async def delete_product(db: AsyncSession, product_id: int):
 
 # Order CRUD
 async def create_order(db: AsyncSession, order: OrderCreate):
-    # Create a new order
     db_order = Order(status="in_progress")
     db.add(db_order)
     
-    # Commit to get the order ID and other generated fields
     await db.commit()
-    await db.refresh(db_order)  # Refresh the order to get ID and created_at
+    await db.refresh(db_order)
 
-    # Process the items in the order
     for item in order.items:
         db_product = await get_product(db, item.product_id)
         if db_product and db_product.quantity >= item.quantity:
-            db_product.quantity -= item.quantity  # Update product quantity
+            db_product.quantity -= item.quantity
             db_order_item = OrderItem(
                 order_id=db_order.id, 
                 product_id=item.product_id, 
@@ -65,13 +63,11 @@ async def create_order(db: AsyncSession, order: OrderCreate):
 
     await db.commit()
 
-    # Eagerly load related items after commit
     result = await db.execute(
         select(Order).options(selectinload(Order.items)).filter(Order.id == db_order.id)
     )
     db_order = result.scalar()
 
-    # Ensure the ORM object is converted to Pydantic model
     return schemas.Order.from_orm(db_order)
 
 
@@ -88,7 +84,7 @@ async def update_order_status(db: AsyncSession, id: int, status: str):
     order = result.scalars().first()
     
     if not order:
-        return None
+        raise HTTPException(status_code=404, detail="Not Found")
 
     order.status = status
 
