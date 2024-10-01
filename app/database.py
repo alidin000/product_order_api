@@ -6,7 +6,7 @@ DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5432/product_or
 
 engine = create_async_engine(DATABASE_URL, future=True, echo=True)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession, expire_on_commit=False)
 
 Base = declarative_base()
 

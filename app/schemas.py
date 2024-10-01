@@ -22,6 +22,10 @@ class OrderItemBase(BaseModel):
     product_id: int
     quantity: int
 
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
 class OrderBase(BaseModel):
     status: str
 

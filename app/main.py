@@ -1,7 +1,6 @@
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Body
 from app import crud, schemas
 from app.database import get_db
 
