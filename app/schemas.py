@@ -28,10 +28,16 @@ class OrderBase(BaseModel):
 class OrderCreate(BaseModel):
     items: List[OrderItemBase]
 
-class Order(OrderBase):
+class Order(BaseModel):
     id: int
     created_at: datetime
+    status: str
     items: List[OrderItemBase]
 
     class Config:
         orm_mode = True
+        from_attributes = True
+
+
+class OrderStatusUpdate(BaseModel):
+    status: str
